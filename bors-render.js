@@ -109,5 +109,6 @@ function render_status() {
     }
 }
 
+keys = ["zinc"];
 
 window.onload = render_status;
