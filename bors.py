@@ -672,6 +672,14 @@ class PullReq:
                 self.log.info("%s - tests successful, waiting for merge approval",
                         self.short())
                 return
+
+            owner = self.cfg["owner"].encode("utf8")
+            repo = self.cfg["repo"].encode("utf8")
+            test_head = self.gh.repos(owner)(repo).git().refs().heads(self.test_ref).get()
+            test_sha = test_head["object"]["sha"].encode("utf8")
+            self.merge_sha = test_sha
+            assert self.merge_sha != None
+
             if self.fresh():
                 self.log.info("%s - tests successful, attempting landing", self.short())
                 self.advance_target_ref_to_test()
