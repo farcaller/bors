@@ -33,21 +33,21 @@ function render_queue(queue) {
 
         var t = e["title"]
 
-            if (e["num_comments"] == 0 || 
+            if (e["num_comments"] == 0 ||
                     e["last_comment"][2].indexOf("r+") == 0) {
                 row.appendChild(elt_txt_class("td", t, "details"));
             } else {
                 var last = e["last_comment"];
-                var when = last[0]; 
-                var who = last[1]; 
-                var what = last[2]; 
+                var when = last[0];
+                var who = last[1];
+                var what = last[2];
 
                 var td = elt_class("td", "details");
                 td.appendChild(elt_txt_class("p", t, "title"));
 
                 var c = elt_class("div", "comment");
                 c.appendChild(elt_txt_class("div",
-                            who + " " + when + " #" + e["num_comments"], 
+                            who + " " + when + " #" + e["num_comments"],
                             "commentheader"));
                 c.appendChild(elt_txt_class("div", what, "commentbody"));
                 td.appendChild(c);
