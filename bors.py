@@ -860,9 +860,9 @@ def main():
     [p.try_advance() for p in reversed(pulls)]
 
 if __name__ == "__main__":
-    try:
-        main()
-    except github.ApiError as e:
-        print("Github API exception: " + str(e.response))
-        exit(-1)
+    # try:
+    main()
+    # except github.ApiError as e:
+    #     print("Github API exception: " + str(e.response))
+    #     exit(-1)
 
