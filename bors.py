@@ -548,10 +548,10 @@ class PullReq:
             self.add_comment(self.sha, s)
 
             # Try to clean up the temporary integration branch
-            try:
-                self.dst().git().refs().heads(self.test_ref).delete()
-            except github.ApiError:
-                self.log.info("deleting integration branch %s failed" % self.test_ref)
+            # try:
+            #     self.dst().git().refs().heads(self.test_ref).delete()
+            # except github.ApiError:
+            #     self.log.info("deleting integration branch %s failed" % self.test_ref)
 
             self.maybe_delete_source_branch()
 
