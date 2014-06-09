@@ -458,7 +458,6 @@ class PullReq:
                 self.merge_sha = m.group(1)
 
     def current_state(self):
-
         if self.closed:
             return STATE_CLOSED
 
@@ -625,6 +624,10 @@ class PullReq:
                 successes = [s for s in statuses if s["state"].encode("utf8") == "success"]
                 failures = [s for s in statuses if s["state"].encode("utf8") == "failure"]
                 errors = [s for s in statuses if s["state"].encode("utf8") == "error"]
+
+                # TODO(farcaller): there might be dup pending states, wtf.
+                map_pending_by_target_url = {p["target_url"]: p for p in pending}
+                pending = map_pending_by_target_url.values()
                 self.log.info("%d pending %d sucesses %d failure %d error" % (len(pending), len(successes), len(failures), len(errors)))
                 if len(statuses) == 0 or len(pending) > len(successes) + len(failures) + len(errors):
                     t = None
@@ -646,7 +649,7 @@ class PullReq:
                 self.log.info("%s - tests passed, marking success", self.short())
                 c = "all tests pass:"
                 for url in main_urls:
-                    c += "\nsuccess: " + url 
+                    c += "\nsuccess: " + url
                 for url in extra_urls:
                     c += "\nwarning: " + url
                 c += "\n"
@@ -657,7 +660,7 @@ class PullReq:
                 self.log.info("%s - tests failed, marking failure", self.short())
                 c = "some tests failed:"
                 for url in main_urls:
-                    c += "\nfailure: " + url 
+                    c += "\nfailure: " + url
                 for url in extra_urls:
                     c += "\nexception: " + url
                 c += "\n"
